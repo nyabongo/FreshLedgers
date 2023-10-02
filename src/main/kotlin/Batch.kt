@@ -1,1 +1,1 @@
-data class Batch(val id: string, val volume: string)
+data class Batch(val id: String, val volume: Double)
