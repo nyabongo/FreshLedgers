@@ -10,7 +10,8 @@ class LiquidContainerTest {
 
     @BeforeEach
     fun setUp() {
-        batch = Batch("TestBatch", 1000_000.0 )
+        val fourDaysAway = Date(Date().time + 4 * 24 * 60 * 60 * 1000)
+        batch = Batch("TestBatch", 1000_000.0 , fourDaysAway)
         ledger = ContainerLedger()
         container = LiquidContainer(id = "TestContainer", batch, capacity = 24_000.0, ledger)
     }

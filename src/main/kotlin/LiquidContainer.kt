@@ -20,6 +20,7 @@ class ContainerLedger() {
 class ContainerOverfillException(message: String) : Exception(message)
 
 class ContainerOverDrainException(message: String):Exception(message)
+
 data class LiquidContainer(val id:String, val batch: Batch, val capacity:Double, val ledger: ContainerLedger) {
 
     val balance:Double get() = ledger.getBalance()
