@@ -10,8 +10,28 @@ class MilkDispenser(val id:String, val maxBays:Int = 6) {
 
     @Throws(OutOfBoundsContainerException::class)
     fun removeContainer(bay: Int): LiquidContainer? {
-        if(containerBays[bay]== null) throw OutOfBoundsContainerException("Invalid position. No Container at given location")
-        return containerBays[bay]
+        try {
+            if(containerBays[bay]== null) throw OutOfBoundsContainerException("Invalid position. No Container at given location")
+            return containerBays[bay]
+        }catch (e:IndexOutOfBoundsException){
+            throw OutOfBoundsContainerException("Invalid position. Position should be between 0 and ${maxBays - 1}")
+        }
+    }
+
+    fun getBatchAtBay(bay: Int): Batch? {
+        return try {
+            containerBays[bay]?.batch
+        } catch (e:IndexOutOfBoundsException){
+            null
+        }
+    }
+
+    fun getContainerVolume(bay: Int): Double {
+        return try {
+            containerBays[bay]?.balance ?: 0.0
+        }catch  (e:IndexOutOfBoundsException){
+            0.0
+        }
     }
 
 }
