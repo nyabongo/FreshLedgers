@@ -6,13 +6,13 @@ import java.util.Date
 class LiquidContainerTest {
     private lateinit var batch: Batch
     private lateinit var container: LiquidContainer
-    private lateinit var ledger: ContainerLedger
+    private lateinit var ledger: LiquidContainerLedger
 
     @BeforeEach
     fun setUp() {
         val fourDaysAway = Date(Date().time + 4 * 24 * 60 * 60 * 1000)
         batch = Batch("TestBatch", 1000_000.0 , fourDaysAway)
-        ledger = ContainerLedger()
+        ledger = LiquidContainerLedger()
         container = LiquidContainer(id = "TestContainer",  capacity = 24_000.0, ledger)
     }
 

@@ -18,7 +18,7 @@ class MilkDispenserTest {
     private lateinit var dispenser: MilkDispenser
     @BeforeEach
     fun setUp() {
-        container = LiquidContainer("container",  20_000.0,ContainerLedger())
+        container = LiquidContainer("container",  20_000.0,LiquidContainerLedger())
         container.fill(container.capacity, batch)
         container_two=LiquidContainer("c2", 20_000.0,)
         container_two.fill(container_two.capacity, batch)

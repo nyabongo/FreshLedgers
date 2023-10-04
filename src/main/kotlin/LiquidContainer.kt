@@ -1,27 +1,10 @@
 import java.util.*
-data class ContainerLedgerEntry(val date: Date, val amount: Double)
 
-class ContainerLedger {
-    private val entries = mutableListOf<ContainerLedgerEntry>()
-
-    fun fill(amount: Double, date: Date) {
-        entries.add(ContainerLedgerEntry(date, amount))
-    }
-
-    fun drain(amount: Double, date: Date) {
-        entries.add(ContainerLedgerEntry(date, -amount))
-    }
-
-    fun getBalance(): Double {
-        return entries.sumOf { it.amount }
-    }
-
-}
 class ContainerOverfillException(message: String) : Exception(message)
 
 class ContainerOverDrainException(message: String):Exception(message)
 
-data class LiquidContainer(val id:String,  val capacity:Double, val ledger: ContainerLedger = ContainerLedger()) {
+data class LiquidContainer(val id:String,  val capacity:Double, val ledger: LiquidContainerLedger = LiquidContainerLedger()) {
 
     val balance:Double get() = ledger.getBalance()
     fun fill(amount: Double, batch: Batch, date: Date = Date()) {
