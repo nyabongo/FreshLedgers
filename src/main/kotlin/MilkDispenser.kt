@@ -19,11 +19,7 @@ class MilkDispenser(val id:String, val maxBays:Int = 6) {
     }
 
     fun getBatchAtBay(bay: Int): Batch? {
-        return try {
-            containerBays[bay]?.batch
-        } catch (e:IndexOutOfBoundsException){
-            null
-        }
+        return null
     }
 
     fun getContainerVolume(bay: Int): Double {

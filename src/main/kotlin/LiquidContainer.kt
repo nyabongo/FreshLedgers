@@ -21,10 +21,10 @@ class ContainerOverfillException(message: String) : Exception(message)
 
 class ContainerOverDrainException(message: String):Exception(message)
 
-data class LiquidContainer(val id:String, val batch: Batch, val capacity:Double, val ledger: ContainerLedger = ContainerLedger()) {
+data class LiquidContainer(val id:String,  val capacity:Double, val ledger: ContainerLedger = ContainerLedger()) {
 
     val balance:Double get() = ledger.getBalance()
-    fun fill(amount: Double, date: Date = Date()) {
+    fun fill(amount: Double, batch: Batch, date: Date = Date()) {
         if(amount>capacity){
             throw ContainerOverfillException("Amount Exceeds Container Capacity!")
         }

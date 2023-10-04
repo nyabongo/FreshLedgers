@@ -13,39 +13,39 @@ class LiquidContainerTest {
         val fourDaysAway = Date(Date().time + 4 * 24 * 60 * 60 * 1000)
         batch = Batch("TestBatch", 1000_000.0 , fourDaysAway)
         ledger = ContainerLedger()
-        container = LiquidContainer(id = "TestContainer", batch, capacity = 24_000.0, ledger)
+        container = LiquidContainer(id = "TestContainer",  capacity = 24_000.0, ledger)
     }
 
     @Test
     fun `Should be able to fill the container with a volume`(){
-        container.fill(amount=2000.0, date= Date())
+        container.fill(amount=2000.0,batch, date= Date())
     }
 
     @Test
     fun `Should not be able to be filled beyond its capacity`(){
         assertThrows<ContainerOverfillException> {
-            container.fill(container.capacity+1,Date())
+            container.fill(container.capacity+1,batch, Date())
         }
     }
 
     @Test
     fun `should not be able to be filled beyond its capacity even with multiple fills`(){
-        container.fill(container.capacity/3, Date())
-        container.fill(container.capacity/3, Date())
+        container.fill(container.capacity/3, batch)
+        container.fill(container.capacity/3, batch)
         assertThrows<ContainerOverfillException> {
-            container.fill(3+container.capacity/3, Date())
+            container.fill(3+container.capacity/3, batch)
         }
     }
 
     @Test
     fun `should be able to drain the container`(){
-        container.fill(container.capacity)
+        container.fill(container.capacity, batch)
         container.drain(container.capacity/2, Date())
     }
 
     @Test
     fun `should not be able to drain the container below its capacity`(){
-        container.fill(container.capacity)
+        container.fill(container.capacity, batch)
         assertThrows<ContainerOverDrainException> {
             container.drain(container.capacity+1)
         }
@@ -57,7 +57,7 @@ class LiquidContainerTest {
         assertThrows<ContainerOverDrainException> {
             container.drain(20.0)
         }
-        container.fill(container.capacity)
+        container.fill(container.capacity, batch)
         container.drain(container.capacity/2)
         assertThrows<ContainerOverDrainException> {
             container.drain(1+container.capacity/2)
@@ -67,11 +67,11 @@ class LiquidContainerTest {
     @Test
     fun `should be able to return the volume left in the container`() {
         assert(container.balance == 0.0)
-        container.fill(container.capacity)
+        container.fill(container.capacity, batch)
         assert(container.balance == container.capacity)
         container.drain(container.capacity)
         assert(container.balance == 0.0)
-        container.fill(container.capacity/2)
+        container.fill(container.capacity/2, batch)
         assert(container.balance == container.capacity/2)
         container.drain(container.capacity/3)
         assert(container.balance.equals(container.capacity/6) )

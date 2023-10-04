@@ -18,14 +18,14 @@ class MilkDispenserTest {
     private lateinit var dispenser: MilkDispenser
     @BeforeEach
     fun setUp() {
-        container = LiquidContainer("container", batch, 20_000.0,ContainerLedger())
-        container.fill(container.capacity)
-        container_two=LiquidContainer("c2",batch, 20_000.0,)
-        container_two.fill(container_two.capacity)
-        container_three=LiquidContainer("c3",batch_two, 20_000.0,)
-        container_three.fill(container_three.capacity)
-        container_four=LiquidContainer("c4",batch_two, 20_000.0,)
-        container_four.fill(container_four.capacity)
+        container = LiquidContainer("container",  20_000.0,ContainerLedger())
+        container.fill(container.capacity, batch)
+        container_two=LiquidContainer("c2", 20_000.0,)
+        container_two.fill(container_two.capacity, batch)
+        container_three=LiquidContainer("c3", 20_000.0,)
+        container_three.fill(container_three.capacity, batch_two)
+        container_four=LiquidContainer("c4", 20_000.0,)
+        container_four.fill(container_four.capacity, batch_two)
         dispenser = MilkDispenser(dispenserId)
     }
 
@@ -90,8 +90,7 @@ class MilkDispenserTest {
 
     @Test
     fun `should be able to return the Batch of the milk in a container in a dispenser bay`() {
-        dispenser.addContainer(container, 3)
-        assertEquals(dispenser.getBatchAtBay(3), container.batch)
+        TODO("Not yet implemented")
     }
 
     @Test
