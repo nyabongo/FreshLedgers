@@ -14,17 +14,25 @@ data class LiquidContainer(val id:String,  val capacity:Double, val ledger: Liqu
         if(amount + balance >capacity){
             throw ContainerOverfillException("Amount would exceed Container Capacity")
         }
-        ledger.fill(amount,date)
+        ledger.fill(amount,batch, date)
     }
 
-    fun drain(amount: Double, date: Date = Date()) {
+    fun drain(amount: Double, date: Date = Date()): MutableMap<Batch, Double> {
         if(amount>capacity){
             throw ContainerOverDrainException("Amount Exceeds Container Capacity!")
         }
         if(amount > balance){
             throw ContainerOverDrainException("Amount Exceeds Container Balance!")
         }
-        ledger.drain(amount,date)
+        return ledger.drain(amount,date)
+    }
+
+    fun getBatches(): List<Batch> {
+        return ledger.getBatches()
+    }
+
+    fun getBatchVolume(batch: Batch): Double {
+        return ledger.getBatchVolume(batch)
     }
 
 }
