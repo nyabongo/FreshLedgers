@@ -90,7 +90,9 @@ class MilkDispenserTest {
 
     @Test
     fun `should be able to return the Batch of the milk in a container in a dispenser bay`() {
-        TODO("Not yet implemented")
+        dispenser.addContainer(container, bay=2)
+        val result = dispenser.getBatchAtBay(2)
+        assertEquals(container.getBatches(),result)
     }
 
     @Test
