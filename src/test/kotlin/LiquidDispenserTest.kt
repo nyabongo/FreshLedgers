@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
 import java.util.*
 
-class MilkDispenserTest {
+class LiquidDispenserTest {
     private val tomorrow = Date(Date().time + 1 * 24 * 60 * 60 * 1000)
     private val batch = Batch("defaultBatch", 200_000.0, tomorrow )
     private val batch_two = Batch("batch_two", 200_000.0, tomorrow )
@@ -15,7 +15,7 @@ class MilkDispenserTest {
     private lateinit var container_two: LiquidContainer
     private lateinit var container_three: LiquidContainer
     private lateinit var container_four: LiquidContainer
-    private lateinit var dispenser: MilkDispenser
+    private lateinit var dispenser: LiquidDispenser
     @BeforeEach
     fun setUp() {
         container = LiquidContainer("container",  20_000.0,LiquidContainerLedger())
@@ -26,7 +26,7 @@ class MilkDispenserTest {
         container_three.fill(container_three.capacity, batch_two)
         container_four=LiquidContainer("c4", 20_000.0,)
         container_four.fill(container_four.capacity, batch_two)
-        dispenser = MilkDispenser(dispenserId)
+        dispenser = LiquidDispenser(dispenserId)
     }
 
     @Test
@@ -46,7 +46,7 @@ class MilkDispenserTest {
 
     @Test
     fun `should not be able to add a container to a bay that doesn't exist`() {
-        val otherDispenser = MilkDispenser("new_Dispenser", 2)
+        val otherDispenser = LiquidDispenser("new_Dispenser", 2)
         assertThrows<OutOfBoundsContainerException>{
             otherDispenser.addContainer(container, otherDispenser.maxBays)
         }

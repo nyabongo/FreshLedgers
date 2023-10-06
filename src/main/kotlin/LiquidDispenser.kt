@@ -1,5 +1,5 @@
 class OutOfBoundsContainerException(message:String):Exception(message)
-class MilkDispenser(val id:String, val maxBays:Int = 6) {
+class LiquidDispenser(val id:String, val maxBays:Int = 6) {
     private val containerBays: MutableList<LiquidContainer?> = MutableList(maxBays){null}
     @Throws(OutOfBoundsContainerException::class)
     fun addContainer(container: LiquidContainer, bay: Int) {
